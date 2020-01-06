@@ -11,10 +11,6 @@ class Buscador extends Component {
         this.props.message(term);
     }
 
-    getApi = () => {
-        const url = `https://pixabay.com/api/?key=14807516-9f19fe57be703023755bd6bff&q=yellow+flowers&image_type=photo&pretty=true`;
-    }
-
     render() {
         return (
             <form onSubmit={this.handleData}>
