@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Imagen from "./Imagen";
 
 class Resultado extends Component {
 
@@ -8,7 +9,11 @@ class Resultado extends Component {
         return (
             <React.Fragment>
                 <div className="col-12 p-5 row">
-
+                    {
+                        imagenes.map(imagen => (
+                          <Imagen/>
+                        ))
+                    }
                 </div>
             </React.Fragment>
         )

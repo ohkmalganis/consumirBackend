@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Imagen extends Component {
-    render() {
-        return (
-            <React.Fragment>
+const Imagen = (props) => {
+    return (
+      <div>
 
-            </React.Fragment>
-        );
-    }
-}
+      </div>
+    );
+};
 
 export default Imagen;
