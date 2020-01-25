@@ -7,13 +7,41 @@ class App extends Component
 
     state = {
         termino: null,
-        imagenes: []
+        imagenes: [],
+        pagina: null
+    };
+
+    scroll = () => {
+        const elemento = document.querySelector('.jumbotron');
+        elemento.scrollIntoView('smooth', 'start');
+    };
+
+    prevPage = () => {
+        // let pagina = this.state.pagina;
+        // pagina--;
+        if(this.state.pagina==1) return false;
+        this.setState((prevState) => ({
+            pagina: prevState.pagina - 1
+        }), () => {
+            this.getApi();
+        });
+    };
+
+    nextPage = () => {
+        // let pagina = this.state.pagina;
+        // pagina++;
+        this.setState((prevState) => ({
+           pagina: prevState.pagina + 1
+        }), () => {
+            this.getApi();
+            this.scroll();
+        });
     };
 
     getApi = () => {
         const term = this.state.termino;
-        const url = `https://pixabay.com/api/?key=14807516-9f19fe57be703023755bd6bff&q=${this.state.termino}&per_page=30`;
-        // console.log(url);
+        const url = `https://pixabay.com/api/?key=14807516-9f19fe57be703023755bd6bff&q=${term}&per_page=30&page=${this.state.pagina}`;
+        console.log(url);
         fetch(url).
             then(resp => resp.json()).
             then(resultado => this.setState({ imagenes: resultado.hits }));
@@ -21,7 +49,8 @@ class App extends Component
 
     dataSearch = (termino) => {
       this.setState({
-          termino
+          termino: termino,
+          pagina: 1
       }, () => {
           this.getApi();
       })
@@ -38,9 +67,11 @@ class App extends Component
                 message={this.dataSearch}
               />
           </div>
-            <div>
+            <div className="row justify-content-center">
                 <Resultado
                     imagenes={this.state.imagenes}
+                    prevPage={this.prevPage}
+                    nextPage={this.nextPage}
                 />
             </div>
         </div>
